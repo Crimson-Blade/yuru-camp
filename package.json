@@ -1,0 +1,29 @@
+{
+  "name": "yuru-camp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Crimson-Blade/yuru-camp.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Crimson-Blade/yuru-camp/issues"
+  },
+  "homepage": "https://github.com/Crimson-Blade/yuru-camp#readme",
+  "dependencies": {
+    "bootstrap": "^5.2.1",
+    "ejs": "^3.1.8",
+    "ejs-mate": "^4.0.0",
+    "express": "^4.18.1",
+    "method-override": "^3.0.0",
+    "mongoose": "^6.6.0",
+    "morgan": "^1.10.0"
+  }
+}
