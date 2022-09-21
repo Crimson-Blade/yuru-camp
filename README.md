@@ -35,7 +35,7 @@ Coming Soon...
 
 * Manage user account with basic functionalities:
 
-  * ~~Password reset via email confirmation~~ (disabled)
+  * Password reset via email confirmation
 
   * Profile page setup with sign-up
 
