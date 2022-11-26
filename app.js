@@ -24,7 +24,7 @@ app.set('views',path.join(__dirname,'views'));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
-app.use(morgan('common'));
+app.use(morgan('dev'));
 app.engine('ejs',ejsMateEngine);
 
 // Routes - Full CRUD
