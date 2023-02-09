@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon ./app.js"
   },
   "repository": {
     "type": "git",
@@ -19,14 +19,17 @@
   "homepage": "https://github.com/Crimson-Blade/yuru-camp#readme",
   "dependencies": {
     "bootstrap": "^5.2.1",
+    "connect-flash": "^0.1.1",
     "ejs": "^3.1.8",
     "ejs-mate": "^4.0.0",
     "express": "^4.18.1",
+    "express-session": "^1.17.3",
+    "joi": "^17.7.0",
     "method-override": "^3.0.0",
     "mongoose": "^6.6.0",
     "morgan": "^1.10.0"
   },
-  "scripts": {
-    "start": "nodemon ./app.js"
+  "devDependencies": {
+    "eslint": "^8.32.0"
   }
 }
