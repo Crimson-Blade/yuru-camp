@@ -8,6 +8,9 @@ const morgan = require('morgan');
 const ejsMateEngine = require('ejs-mate');
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
+const passportLocalStratergy = require('passport-local');
+const User = require('./models/user');
 
 // Connections and Initialising
 const app = express();
@@ -20,6 +23,7 @@ mongoose.connection.once('open', () => {
     console.log('Database connected');
 });
 
+
 // Middleware
 app.set('view engine', 'ejs');
 // eslint-disable-next-line no-undef
@@ -29,17 +33,8 @@ app.use(methodOverride('_method'));
 app.use(morgan('dev'));
 app.engine('ejs', ejsMateEngine);
 app.use(express.static('public'));
-app.use(flash());
-// setup flash
-app.use((req, res, next) => {
-    // flash messages are stored in the session and accessible to templates
-    res.locals.flashSuccess = req.flash('success');
-    res.locals.flashError = req.flash('error');
-    next();
-})
 
-//session
-
+// Session
 const sessionConfig = {
     secret: "Supersecret",
     resave: false,
@@ -51,8 +46,21 @@ const sessionConfig = {
     }
 }
 app.use(session(sessionConfig));
+// setup flash
 app.use(flash());
+app.use((req, res, next) => {
+    // flash messages are stored in the session and accessible to templates
+    res.locals.flashSuccess = req.flash('success');
+    res.locals.flashError = req.flash('error');
+    next();
+})
 
+// Authentication using Passport
+app.use(passport.initialize())
+app.use(passport.session());
+passport.use(new passportLocalStratergy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // Routes - Full CRUD
 app.use('/campgrounds', require('./routes/campgrounds'));
@@ -60,12 +68,18 @@ app.use('/campgrounds/:id/reviews', require('./routes/reviews'));
 app.get('/', (req, res) => {
     res.redirect('/campgrounds');
 })
-
+app.get('/fakeuser', async (req, res) => {
+    const newUser = await User.register(new User({
+        email: 'coltsteeeele@lal.com',
+        username: 'colt'
+    }), 'chicken');
+    res.send(newUser);
+})
 //Error Handling
 app.use((err, req, res, next) => {
     console.log(err);
-    if(!err.message)  err.message = 'Something went wrong';
-    if(!err.statusCode)  err.statusCode = 500;
+    if (!err.message) err.message = 'Something went wrong';
+    if (!err.statusCode) err.statusCode = 500;
     res.status(err.statusCode).render('error', { err });
     next();
 })
